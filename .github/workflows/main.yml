@@ -1,22 +1,24 @@
-name: Build APK
+name: Build Android APK
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Télécharger le projet
         uses: actions/checkout@v4
 
-      - name: Build with Buildozer
+      - name: Build avec Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
         with:
           command: buildozer android debug
 
-      - name: Upload APK
+      - name: Envoyer l'APK
         uses: actions/upload-artifact@v4
         with:
           name: SmartBatteryAI-APK
